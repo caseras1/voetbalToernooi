@@ -13,6 +13,14 @@ include("../php/config.php")
     <title>Document</title>
 </head>
 <body>
+    <?php
+    include("../include/header.php")
+    ?>
+
+    <?php
+    include("../include/footer.php")
+    ?>
+    
     
 </body>
 </html>
