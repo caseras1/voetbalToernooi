@@ -1,3 +1,10 @@
+<?php
+session_start();
+include("../php/config.php")
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +13,16 @@
     <title>Document</title>
 </head>
 <body>
+    <?php
+        
+    include '../include/header.php';
     
+    ?> 
+
+    <?php
+    
+    include '../include/footer.php';
+    
+    ?>
 </body>
 </html>
