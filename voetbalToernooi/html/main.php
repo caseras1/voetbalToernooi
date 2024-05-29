@@ -16,12 +16,12 @@ include("../php/config.php")
 
 
     <?php
-    include("../include/header.php")
+    include("../include/header.html")
     ?>
 
 
     <?php
-    include("../include/footer.php")
+    include("../include/footer.html")
     ?>
     
     

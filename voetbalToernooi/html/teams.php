@@ -4,7 +4,6 @@ include("../php/config.php")
 
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,15 +14,15 @@ include("../php/config.php")
 <body>
 
     <?php
-    include("../include/header.php")
+    include("../include/header.html")
     ?>
 
-    
+    <h1>a</h1>
 
 
 
     <?php
-    include("../include/footer.php")
+    include("../include/footer.html")
     ?>
     
 </body>
