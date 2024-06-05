@@ -1,24 +1,20 @@
-document.addEventListener('DOMContentLoaded', (event) => {
-    let playerCount = 1;
+document.getElementById('add-player-btn').addEventListener('click', function() {
+    const container = document.getElementById('players-container');
+    const playerCount = container.getElementsByClassName('player-group').length;
+    const newPlayerDiv = document.createElement('div');
+    newPlayerDiv.classList.add('player-group');
 
-    document.getElementById('add-player-btn').addEventListener('click', () => {
-        playerCount++;
-        const playersContainer = document.getElementById('players-container');
-        const playerGroup = document.createElement('div');
-        playerGroup.classList.add('player-group');
+    const newPlayerLabel = document.createElement('label');
+    newPlayerLabel.setAttribute('for', 'player' + (playerCount + 1));
+    newPlayerLabel.textContent = 'Speler ' + (playerCount + 1) + ':';
 
-        const label = document.createElement('label');
-        label.setAttribute('for', 'player' + playerCount);
-        label.textContent = 'Speler ' + playerCount + ':';
-        playerGroup.appendChild(label);
+    const newPlayerInput = document.createElement('input');
+    newPlayerInput.setAttribute('type', 'text');
+    newPlayerInput.setAttribute('id', 'player' + (playerCount + 1));
+    newPlayerInput.setAttribute('name', 'players[]');
+    newPlayerInput.required = true;
 
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.id = 'player' + playerCount;
-        input.name = 'players[]';
-        input.required = true;
-        playerGroup.appendChild(input);
-
-        playersContainer.appendChild(playerGroup);
-    });
+    newPlayerDiv.appendChild(newPlayerLabel);
+    newPlayerDiv.appendChild(newPlayerInput);
+    container.appendChild(newPlayerDiv);
 });

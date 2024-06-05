@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style/teams.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>teams aanmelding</title>
 </head>
 <body>
@@ -12,37 +13,33 @@
     include("../include/header.html");
     ?>
 
-    <div class="main-container">
-        <div class="form-container">
             <h2>Voetbalteam Aanmelden</h2>
-            <form action="html/send-email.php" method="post" id="team-form">
-                <label for="team-name">Team Naam:</label>
-                <input type="text" id="team-name" name="team_name" required>
 
-                <label for="coach-name">Coach Naam:</label>
-                <input type="text" id="coach-name" name="coach_name" required>
+            <form action="../html/process.php" method="post">
+                <input type="text" class="form-control mt-4" name="name" placeholder="Vul hier je Naam in: " required> <br>
+                <input type="text" class="form-control mt-4" name="subject" placeholder="Vul hier uw team naam in: "> <br>
+                <input type="email" class="form-control mt-4" name="email" placeholder="Vul hier je Email in: " required> <br>
+                <textarea class="form-control mt-4" rows="5" name="message" placeholder="Vul hier jouw vraag in: "></textarea> <br>
 
-                <label for="coach-email">Coach Email:</label>
-                <input type="email" id="coach-email" name="coach_email" required>
-
-                <label for="coach_phone">Coach Telefoon:</label>
-                <input type="tel" id="coach_phone" name="coach_phone" required>
-
-                <!-- <h3>Spelers</h3>
+                <h3>Spelers</h3>
                 <div id="players-container">
                     <div class="player-group">
+                        <button type="button" id="add-player-btn">Speler Toevoegen</button>
                         <label for="player1">Speler 1:</label>
                         <input type="text" id="player1" name="players[]" required>
                     </div>
                 </div>
-                <button type="button" id="add-player-btn">Speler Toevoegen</button>-->
-                <button type="submit">Stuur mij een mail</button> 
+            
+                <input type="submit" class="btn btn-primary mt-4" value="Send" name="Verzenden">
+            
+                <script src="../javascript/teams.js"></script> 
+
+            
+            
             </form>
-        </div>
-    </div>
 
-    <script src="../javascript/teams.js"></script>
 
+               
 
 </body>
 </html>
