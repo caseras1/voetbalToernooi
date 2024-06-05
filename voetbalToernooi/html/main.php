@@ -14,10 +14,13 @@ include("../php/config.php")
 </head>
 <body>
 
-
     <?php
     include("../include/header.html")
     ?>
+
+    <h1>Kids League</h1>
+
+    
 
 
     <?php
