@@ -10,6 +10,7 @@ include("../php/config.php")
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel ="stylesheet" href="../style/main.css">
     <title>Document</title>
 </head>
 <body>
@@ -18,7 +19,32 @@ include("../php/config.php")
     include("../include/header.html")
     ?>
 
-    <h1>Kids League</h1>
+    <div class="box">
+   <h2>Welkom bij de KidsLeague</h2>
+   <h4>wij zijn een voetbal toernooi georganiseerd door basisschool de Gentiaan voor scholen uit de omgeving west-Brabant <a href="../html/teams.php">inschrijven</a>  kan nog , VOL IS VOL!</h4>
+
+
+
+    </div>
+    <div class="box1">
+<h2>Tussenstanden:</h2>
+<h4>nog geen tussenstanden mogelijk</h4>
+
+
+
+ </div>
+
+ </div>
+    <div class="box3">
+        <div class=logo1>
+<img src="../images/logo-voetbaltoernooi.PNG" href="main.php">
+
+        </div>
+
+
+
+
+    </div>
 
     
 

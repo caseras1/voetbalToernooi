@@ -30,7 +30,7 @@
                         <input type="text" id="player1" name="players[]" class="form-control me-2" required>
                     </div>
                 </div>
-                <input type="submit" class="btn btn-primary mt-4" value="Send" name="Verzenden">
+                <input type="submit"class="submitknop" value="versturen" name="Verzenden">
             </form>
         </div>
     </div>

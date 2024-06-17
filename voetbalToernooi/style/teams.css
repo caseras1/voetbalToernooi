@@ -84,3 +84,8 @@ button:hover {
     height: 200px; /* Fixed height */
     overflow-y: auto;
 }
+
+.submitknop{
+    color:white;
+    background-color:rgb(51, 83, 58)
+}
