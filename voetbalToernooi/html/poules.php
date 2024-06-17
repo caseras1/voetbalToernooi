@@ -1,16 +1,21 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Toernooi Poules en Wedstrijdschema</title>
+    <link rel="stylesheet" href="../style/poules.css">
 
 </head>
 <body>
+<?php
+    include("../include/header.html")
+    ?>
 
 <div class="container">
     <h1>Toernooi Poules en Wedstrijdschema</h1>
 
+    <div class="poule-container">
     <?php
     // Poule en team data
     $poules = [
@@ -26,6 +31,7 @@
 
     // Weergeven van poules en teams
     foreach ($poules as $poule => $teams) {
+        echo "<div class='poule'>";
         echo "<h2>$poule</h2>";
         echo "<table>";
         echo "<tr><th>Team</th></tr>";
@@ -33,26 +39,37 @@
             echo "<tr><td>$team</td></tr>";
         }
         echo "</table>";
+        echo "</div>";
     }
-
-    // Wedstrijdschema
-    echo "<div class='schedule'>";
-    echo "<h2>Wedstrijdschema</h2>";
-    foreach ($poules as $poule => $teams) {
-        echo "<h3>$poule</h3>";
-        echo "<table>";
-        echo "<tr><th>Wedstrijd</th></tr>";
-        for ($i = 0; $i < count($teams); $i++) {
-            for ($j = $i + 1; $j < count($teams); $j++) {
-                echo "<tr><td>{$teams[$i]} vs {$teams[$j]}</td></tr>";
-            }
-        }
-        echo "</table>";
-    }
-    echo "</div>";
     ?>
+    </div>
+
+    <div class="schedule">
+        <h2>Wedstrijdschema</h2>
+        <form action="verwerk_uitslagen.php" method="post">
+        <?php
+        foreach ($poules as $poule => $teams) {
+            echo "<h3>$poule</h3>";
+            echo "<table>";
+            echo "<tr><th>Wedstrijd</th><th>Uitslag</th></tr>";
+            for ($i = 0; $i < count($teams); $i++) {
+                for ($j = $i + 1; $j < count($teams); $j++) {
+                    echo "<tr>";
+                    echo "<td>{$teams[$i]} vs {$teams[$j]}</td>";
+                    echo "<td><input class='input-goals' type='number' name='score[{$poule}][{$teams[$i]}_vs_{$teams[$j]}][team1]' min='0'> - <input class='input-goals' type='number' name='score[{$poule}][{$teams[$i]}_vs_{$teams[$j]}][team2]' min='0'></td>";
+                    echo "</tr>";
+                }
+            }
+            echo "</table>";
+        }
+        ?>
+        <input type="submit" value="Verstuur Uitslagen">
+        </form>
+    </div>
 
 </div>
-
+<?php
+    include("../include/footer.html")
+    ?>
 </body>
 </html>
