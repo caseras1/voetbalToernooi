@@ -37,6 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $conn->close();
 
 // Doorsturen naar de vorige pagina
-header("Location: wedstrijdschema.php");
+header("Location: Wschema.php");
 exit;
 ?>
