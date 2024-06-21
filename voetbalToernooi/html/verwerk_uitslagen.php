@@ -15,24 +15,21 @@ if ($conn->connect_error) {
 
 // Verwerk de uitslagen
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    foreach ($_POST['score'] as $wedstrijd_id => $scores) {
+    foreach ($_POST['score'] as $match => $scores) {
+        list($team1_id, $team2_id) = explode("_vs_", $match);
         $score1 = $scores['team1'];
         $score2 = $scores['team2'];
 
-        // Bereid de query voor om de uitslagen op te slaan
-        $sql = "UPDATE wedstrijden SET Score_ID1 = ?, Score_ID2 = ? WHERE Wedstrijd_ID = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("iii", $score1, $score2, $wedstrijd_id);
+        // Query om de uitslagen op te slaan
+        $sql = "INSERT INTO wedstrijden (Poules_ID, Team_ID1, Team_ID2, Score_ID1, Score_ID2) 
+                VALUES ((SELECT Poules_ID FROM poules WHERE Team_ID1 = $team1_id OR Team_ID2 = $team1_id OR Team_ID3 = $team1_id OR Team_ID4 = $team1_id LIMIT 1), 
+                        $team1_id, $team2_id, $score1, $score2)";
 
-        // Voer de query uit
-        if ($stmt->execute()) {
-            echo "Nieuwe uitslagen succesvol toegevoegd.";
+        if ($conn->query($sql) === TRUE) {
+            echo "Nieuwe uitslag succesvol toegevoegd.";
         } else {
-            echo "Error: " . $stmt->error;
+            echo "Error: " . $sql . "<br>" . $conn->error;
         }
-
-        // Sluit de statement
-        $stmt->close();
     }
 }
 
@@ -40,6 +37,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 $conn->close();
 
 // Doorsturen naar de vorige pagina
-header("Location: index.php");
+header("Location: wedstrijdschema.php");
 exit;
 ?>
