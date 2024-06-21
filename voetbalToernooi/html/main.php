@@ -28,7 +28,11 @@ include("../php/config.php")
     </div>
     <div class="box1">
 <h2>Tussenstanden:</h2>
-<h4>nog geen tussenstanden mogelijk</h4>
+    <!-- Hier wordt een iframe gebruikt om een andere webpagina in te sluiten -->
+    <iframe src="tussenstand2.php" width="500" height="200" title="Ingesloten Pagina"></iframe>
+
+</body>
+</html>
 
 
 
