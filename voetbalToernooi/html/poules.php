@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toernooi Poules en Wedstrijdschema</title>
+    <title>Toernooi Poules</title>
     <link rel="stylesheet" href="../style/poules.css">
 </head>
 <body>
@@ -55,10 +55,13 @@
             $poules[$poule_id] = $teams;
         }
     }
+
+    // Sluit de verbinding
+    $conn->close();
 ?>
 
 <div class="container">
-    <h1>Toernooi Poules en Wedstrijdschema</h1>
+    <h1>Toernooi Poules</h1>
 
     <div class="poule-container">
     <?php
@@ -76,53 +79,8 @@
     }
     ?>
     </div>
-
-    <div class="schedule">
-        <h2>Wedstrijdschema</h2>
-        <form action="verwerk_uitslagen.php" method="post">
-        <?php
-        // Haal de wedstrijden op uit de database
-        $wedstrijden_query = "
-            SELECT 
-                w.Wedstrijd_ID, 
-                p.Poules_ID, 
-                t1.Team_Naam AS Team1, 
-                t2.Team_Naam AS Team2 
-            FROM 
-                wedstrijden w
-            JOIN 
-                poules p ON w.Poules_ID = p.Poules_ID
-            JOIN 
-                teams t1 ON w.Team_ID1 = t1.Team_ID
-            JOIN 
-                teams t2 ON w.Team_ID2 = t2.Team_ID
-        ";
-        $wedstrijden_result = $conn->query($wedstrijden_query);
-
-        if ($wedstrijden_result->num_rows > 0) {
-            while ($wedstrijd = $wedstrijden_result->fetch_assoc()) {
-                $poule_id = "Poule " . chr(64 + $wedstrijd['Poules_ID']); // Converteer Poules_ID naar letter (1 -> A, 2 -> B, etc.)
-                echo "<h3>$poule_id</h3>";
-                echo "<table>";
-                echo "<tr><th>Wedstrijd</th><th>Uitslag</th></tr>";
-                echo "<tr>";
-                echo "<td>{$wedstrijd['Team1']} vs {$wedstrijd['Team2']}</td>";
-                echo "<td>
-                        <input class='input-goals' type='number' name='score[{$wedstrijd['Wedstrijd_ID']}][team1]' min='0'> - 
-                        <input class='input-goals' type='number' name='score[{$wedstrijd['Wedstrijd_ID']}][team2]' min='0'>
-                      </td>";
-                echo "</tr>";
-                echo "</table>";
-            }
-        }
-        ?>
-        <input type="submit" value="Verstuur Uitslagen">
-        </form>
-    </div>
-
 </div>
-<?php
-    include("../include/footer.html");
-?>
+
+
 </body>
 </html>
