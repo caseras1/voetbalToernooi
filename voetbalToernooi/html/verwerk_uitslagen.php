@@ -20,16 +20,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $score1 = $scores['team1'];
         $score2 = $scores['team2'];
 
-        // Query om de uitslagen op te slaan
-        $sql = "INSERT INTO wedstrijden (Poules_ID, Team_ID1, Team_ID2, Score_ID1, Score_ID2) 
-                VALUES ((SELECT Poules_ID FROM poules WHERE Team_ID1 = $team1_id OR Team_ID2 = $team1_id OR Team_ID3 = $team1_id OR Team_ID4 = $team1_id LIMIT 1), 
-                        $team1_id, $team2_id, $score1, $score2)";
-
-        if ($conn->query($sql) === TRUE) {
+        // Gebruik een prepared statement om SQL Injection te voorkomen
+        $stmt = $conn->prepare("INSERT INTO wedstrijden (Poules_ID, Team_ID1, Team_ID2, Score_ID1, Score_ID2) 
+                                SELECT p.Poules_ID, ?, ?, ?, ?
+                                FROM poules p
+                                WHERE p.Team_ID1 = ? OR p.Team_ID2 = ? OR p.Team_ID3 = ? OR p.Team_ID4 = ?
+                                LIMIT 1");
+        
+        // Bind parameters aan de prepared statement
+        $stmt->bind_param("iiiiiiii", $team1_id, $team2_id, $score1, $score2, $team1_id, $team1_id, $team1_id, $team1_id);
+        
+        // Voer de query uit
+        if ($stmt->execute()) {
             echo "Nieuwe uitslag succesvol toegevoegd.";
         } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Error: " . $stmt->error;
         }
+
+        // Sluit de prepared statement
+        $stmt->close();
     }
 }
 
