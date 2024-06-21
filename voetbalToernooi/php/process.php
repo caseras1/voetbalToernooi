@@ -2,7 +2,9 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require '../vendor/autoload.php'; // Adjust the path if necessary
+require '../vendor/autoload.php'; 
+
+$mail = new PHPMailer(true);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = htmlspecialchars($_POST['name']);
@@ -16,8 +18,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $player = htmlspecialchars($player);
         $playerList .= "<p><strong>Speler " . ($index + 1) . ":</strong> $player</p>";
     }
-
-    $mail = new PHPMailer(true);
 
     try {
         // Server settings
@@ -83,6 +83,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $mail->send();
 
+        require '../html/teams.php';
+
         // Redirect to main.php
         header('Location: ../html/main.php');
         exit;
@@ -90,4 +92,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Email could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
 }
+
 ?>
